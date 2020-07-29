@@ -13,7 +13,9 @@ import { MatButtonModule, MatCardModule, MatInputModule, MatProgressSpinnerModul
 import { FormsModule} from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
-import { HomeComponent } from './home/home.component'
+import { HomeComponent } from './home/home.component';
+import { CreatepollComponent } from './createpoll/createpoll.component';
+import { DashboardComponent } from './dashboard/dashboard.component'
 const config = environment.firebaseConfig
 
 @NgModule({
@@ -21,7 +23,9 @@ const config = environment.firebaseConfig
     AppComponent,
     SigninComponent,
     SignupComponent,
-    HomeComponent
+    HomeComponent,
+    CreatepollComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

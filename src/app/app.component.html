@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-primary navbar-dark fixed-top">
   <!-- Brand -->
-  <a class="navbar-brand" href="">Pollster</a>
+  <a class="navbar-brand" routerLink="">Pollster</a>
 
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -8,14 +8,20 @@
   </button>
 
   <!-- Navbar links -->
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+  <div class="collapse navbar-collapse justify-content-end" id="collapsibleNavbar">
     <ul class="navbar-nav">
       
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="user==null">
         <a class="nav-link" routerLink="/signup">Sign Up</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="user==null">
         <a class="nav-link" routerLink="/signin">Sign In</a>
+      </li>
+      <li class="nav-item" *ngIf="user!=null">
+        <a class="nav-link text-white" routerLink="dashboard"> <img src="../assets/personsmall.png" alt=""> {{auth.auth.currentUser.displayName}}</a>
+      </li>
+      <li class="nav-item" *ngIf="user!=null">
+        <button mat-button style="color: whitesmoke;" (click)="logout()">Signout</button>
       </li>
       
     </ul>
