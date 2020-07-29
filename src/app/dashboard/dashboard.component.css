@@ -1,0 +1,19 @@
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    color: white;
+}
+
+mat-card{
+    width: 100%;
+    margin: auto;
+    margin-left: 2rem;
+}
+
+button:hover{
+    color: white;
+    
+}

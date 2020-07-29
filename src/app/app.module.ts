@@ -15,7 +15,9 @@ import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { HomeComponent } from './home/home.component';
 import { CreatepollComponent } from './createpoll/createpoll.component';
-import { DashboardComponent } from './dashboard/dashboard.component'
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ViewpollsComponent } from './viewpolls/viewpolls.component';
+import { ProfileComponent } from './profile/profile.component'
 const config = environment.firebaseConfig
 
 @NgModule({
@@ -25,7 +27,9 @@ const config = environment.firebaseConfig
     SignupComponent,
     HomeComponent,
     CreatepollComponent,
-    DashboardComponent
+    DashboardComponent,
+    ViewpollsComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

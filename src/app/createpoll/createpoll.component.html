@@ -1,1 +1,59 @@
-<p>createpoll works!</p>
+<div *ngIf="!isLoading">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                Create a poll with upto 10 Options
+            </mat-card-title>
+            <mat-card-subtitle>
+                You should need a non-empty question and atleast two options to save this poll
+            </mat-card-subtitle>
+        </mat-card-header>
+        <hr style="height: 1px; background-color: black;">
+        <mat-card-content>
+            <mat-form-field>
+                <textarea type="text" rows="3" maxlength="100" [(ngModel)]="Question" matInput placeholder="Your Poll Question"> </textarea>
+            </mat-form-field>
+            <div *ngIf="polloptions.length > 0">
+                <div style=" padding: 10px;">
+                    <h5>Your options</h5>
+                    <div class="mt-1" *ngFor="let option of polloptions">
+                        
+                        <div class="row">
+                            <div class="col-sm-9">
+                                {{option.optionvalue}}
+                            </div>
+                            <div class="col-sm-3" align="end">
+                                <button (click)="deletethisoption(option.index)" class="btn btn-sm">
+                                    <span class="material-icons">
+                                        delete
+                                        </span>
+                                </button>
+                            </div>
+    
+                        </div>
+                        <hr>
+                    </div>
+    
+                </div>
+            </div>
+            <mat-form-field>
+                <input id="optionvalue" matInput type="text" maxlength="50" placeholder="Option"  [(ngModel)]="currentoption">
+            </mat-form-field>
+            
+            <button mat-raised-button color="primary" (click)="addoption()">Add option</button>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="mt-5 text-center" *ngIf="Question.length > 0 && this.polloptions.length > 1">
+                <button mat-raised-button color="accent" (click)="savepoll()"> Save Poll </button>
+    
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</div>
+
+<div *ngIf="isLoading">
+    
+    <div >
+        <mat-spinner class="spinner" ></mat-spinner>
+    </div>
+</div>

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private auth: AngularFireAuth, private router: Router) { }
+  constructor(private auth: AngularFireAuth,private db: AngularFirestore, private router: Router) { }
 
   ngOnInit() {
 
@@ -35,6 +35,10 @@ export class SignupComponent implements OnInit {
         this.auth.auth.createUserWithEmailAndPassword(Form.value.email, Form.value.password).then((result)=>{
           console.log(result);
           result.user.updateProfile({displayName: Form.value.firstname + " "+ Form.value.lastname});
+          this.db.collection("pollcreaters").doc(result.user.uid).set({
+            'email': result.user.email,
+            'displayName': result.user.displayName
+          })
           result.user.sendEmailVerification().then(()=>{
             alert("Please verify your email to login");
             this.auth.auth.signOut();

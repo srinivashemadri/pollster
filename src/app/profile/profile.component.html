@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>Welcome, {{user.displayName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="text-center" >
+            <img [src]="user.photoURL" height="150" width="150" alt="Profile Picture">
+        </div>
+        <div class="mt-2">
+            <form #ng="ngForm" (ngSubmit)="updateprofile(ng)">
+                <mat-form-field>
+                    <input style="color: grey;" matInput type="text" readonly [(ngModel)]="user.email" required name="email" placeholder="Email">
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" [(ngModel)]="user.displayName" required name="name" placeholder="Name">
+                    <mat-error>Name is required</mat-error>
+                </mat-form-field>
+                <div class="text-center">
+                    <button [disabled]="ng.invalid" mat-raised-button color="primary">Update Profile</button>
+                </div>
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>
