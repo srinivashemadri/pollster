@@ -12,14 +12,16 @@ import {environment} from '../environments/environment.prod'
 import { MatButtonModule, MatCardModule, MatInputModule, MatProgressSpinnerModule } from '@angular/material';
 import { FormsModule} from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
-import { SignupComponent } from './signup/signup.component'
+import { SignupComponent } from './signup/signup.component';
+import { HomeComponent } from './home/home.component'
 const config = environment.firebaseConfig
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
