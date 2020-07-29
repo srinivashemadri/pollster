@@ -1,1 +1,26 @@
-<p>viewpolls works!</p>
+<div *ngIf="!isLoading">
+    <p class="display-4 text-center mt-3" >All your polls</p>
+
+    <div *ngFor="let pool of viewpolls">
+
+        <mat-card class="mt-2">
+            <mat-card-header>
+                <mat-card-title>
+                    {{ pool["question"]}}
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-actions class="text-right">
+                <button class="btn btn-primary" (click)="viewthispoll(pool['uid'])">View this poll</button>
+                &nbsp;&nbsp;&nbsp;
+                <button class="btn btn-danger">Delete this poll</button>
+            </mat-card-actions>
+        </mat-card>
+
+    </div>
+
+</div>
+
+<div *ngIf="isLoading">
+    <mat-spinner style="left: 50%;"></mat-spinner>
+
+</div>

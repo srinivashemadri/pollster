@@ -12,10 +12,13 @@ export class ProfileComponent implements OnInit {
   constructor(private auth: AngularFireAuth) { }
 
   user;
+  isLoading:boolean = false;
 
   ngOnInit() {
 
+    this.isLoading = true;
     this.auth.authState.subscribe((user)=>{
+      this.isLoading = false;
       this.user = user;
     })
 

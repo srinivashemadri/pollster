@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-viewpolls',
@@ -7,9 +10,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewpollsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private db: AngularFirestore, private router: Router,private auth: AngularFireAuth) { }
+
+  isLoading:boolean = false;
+
+  viewpolls:Object[] = []
+
 
   ngOnInit() {
+    this.isLoading = true;
+
+    this.auth.authState.subscribe((user)=>{
+      this.db.collection("pollcreaters").doc(user.uid).collection("polls").get().subscribe((result)=>{
+        this.isLoading = false;
+        result.docs.forEach((document)=>{
+          let obj ={
+            'uid': document.id,
+            'question': document.get('question')
+          }
+          this.viewpolls.push(obj);
+        })
+      })
+    })
+
+    
+
+  }
+
+  viewthispoll(uid: String){
+    this.router.navigate(['/poll/'+uid]);
   }
 
 }

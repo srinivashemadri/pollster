@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreatepollComponent } from './createpoll/createpoll.component';
 import { ViewpollsComponent } from './viewpolls/viewpolls.component';
+import { DetailedpollComponent } from './detailedpoll/detailedpoll.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'createpoll', component: CreatepollComponent},
-  {path: 'viewpolls', component: ViewpollsComponent}
+  {path: 'viewpolls', component: ViewpollsComponent},
+  {path: 'poll/:uid', component: DetailedpollComponent}
 ];
 
 @NgModule({

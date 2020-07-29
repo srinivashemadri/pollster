@@ -12,7 +12,7 @@ export class CreatepollComponent implements OnInit {
   constructor(private auth: AngularFireAuth, private db: AngularFirestore) { }
 
   polloptions:Object[] =[];
-
+  
   Question:String ="";
   currentoption: String ="";
   user;
@@ -44,21 +44,28 @@ export class CreatepollComponent implements OnInit {
   }
 
   deletethisoption(index: String){
-    this.polloptions = this.polloptions.filter((option)=>{
-      return option["index"] == index? false: true
+    
+    this.polloptions =  this.polloptions.filter((option)=>{
+      return option["index"] != index ? true : false
     })
   }
 
-  savepoll(){
+  async savepoll(){
     const obj ={
       'question': this.Question,
-      'options': this.polloptions
+      'options': this.polloptions,
+      'email': this.auth.auth.currentUser.email
     }
+    
     const ts = Date.now();
     this.isLoading= true;
-    this.db.collection("pollcreaters").doc(this.auth.auth.currentUser.uid).collection("polls").doc(ts.toString()).set(obj).then(()=>{
+    await this.db.collection("pollcreaters").doc(this.auth.auth.currentUser.uid).collection("polls").doc(ts.toString()).set({'question': this.Question}).then(()=>{
+      
+    });
+    this.db.collection("polls").doc(ts.toString()).set(obj).then(()=>{
       this.isLoading= false;
     });
+
   }
 
 }

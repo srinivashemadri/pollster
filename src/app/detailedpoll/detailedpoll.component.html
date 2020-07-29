@@ -1,0 +1,24 @@
+<div *ngIf="!isLoading">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{question}}</mat-card-title>
+            <mat-card-subtitle>Vote for the below options</mat-card-subtitle>
+        </mat-card-header>
+        <hr style="height: 1px; background-color: black;">
+        <mat-card-content>
+            <div *ngFor="let option of options">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <p class="mt-2">{{option['optionvalue']}}</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <div *ngIf="this.auth.auth.currentUser==null || this.auth.auth.currentUser.email!=option['email']">
+                            <button mat-stroked-button color="primary">Vote</button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
