@@ -1,0 +1,32 @@
+<div class="mt-5">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Sign In to Pollster</mat-card-title>
+            <mat-card-subtitle>Sign In email and password</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <form>
+                <mat-form-field>
+                    <input matInput type="email" required name="email" placeholder="Email" ngModel>
+                    <mat-error>Email is required</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" required name="password" minlength="6" placeholder="Password" ngModel>
+                    <mat-error>Password should be atleast 6 characters long </mat-error>
+                </mat-form-field>
+                <div class="text-center">
+                    <button mat-raised-button color="accent">Sign In</button>
+
+                </div>
+            </form>
+        </mat-card-content>
+        
+        <mat-card-actions>
+            <p style="font-weight: lighter;" class="text-center"> -- Other Sign in options --</p>
+            <hr >
+            <button mat-flat-button class="btn-block" (click)="signinwithgoogle()"  >
+                <img src="../../assets/google.png" height="20" width="20" alt=""> &nbsp; &nbsp; Sign in with google
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>
