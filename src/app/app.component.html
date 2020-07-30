@@ -18,7 +18,12 @@
         <a class="nav-link" routerLink="/signin">Sign In</a>
       </li>
       <li class="nav-item" *ngIf="user!=null">
-        <a class="nav-link text-white" routerLink="dashboard"> <img src="../assets/personsmall.png" alt=""> &nbsp; {{auth.auth.currentUser.displayName}}</a>
+        <a class="nav-link text-white" routerLink="dashboard"> <img src="../assets/personsmall.png" alt=""> &nbsp;
+          <span *ngIf="user!=null">
+             {{ user!=null? auth.auth.currentUser.displayName : ""}}
+
+          </span>
+         </a>
       </li>
       <li class="nav-item" *ngIf="user!=null">
         <button mat-button style="color: whitesmoke;" (click)="logout()">Signout</button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { NgForm } from '@angular/forms';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private auth: AngularFireAuth,private db: AngularFirestore, private router: Router) { }
+  constructor(private auth: AngularFireAuth,private db: AngularFirestore, private router: Router,private zone: NgZone) { }
 
   ngOnInit() {
 
@@ -22,8 +22,10 @@ export class SignupComponent implements OnInit {
   signinwithgoogle(){
     var provider = new firebase.auth.GoogleAuthProvider();
     this.auth.auth.signInWithPopup(provider).then((result)=>{
+      this.zone.run(()=>{
+        this.router.navigate(['/dashboard']);
+      })
       
-      this.router.navigate(['/dashboard']);
     })
     
   }
@@ -33,7 +35,7 @@ export class SignupComponent implements OnInit {
       if(Form.value.password == Form.value.cf_password){
 
         this.auth.auth.createUserWithEmailAndPassword(Form.value.email, Form.value.password).then((result)=>{
-          console.log(result);
+          
           result.user.updateProfile({displayName: Form.value.firstname + " "+ Form.value.lastname});
           this.db.collection("pollcreaters").doc(result.user.uid).set({
             'email': result.user.email,
@@ -44,6 +46,8 @@ export class SignupComponent implements OnInit {
             this.auth.auth.signOut();
             this.router.navigate(['/signin']);
           })
+        }).catch((err)=>{
+          alert(err.message);
         })
       }
     }

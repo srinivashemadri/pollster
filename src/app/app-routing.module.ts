@@ -7,16 +7,20 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { CreatepollComponent } from './createpoll/createpoll.component';
 import { ViewpollsComponent } from './viewpolls/viewpolls.component';
 import { DetailedpollComponent } from './detailedpoll/detailedpoll.component';
+import { AuthGuard } from './auth.guard';
+import { PathnotfoundComponent } from './pathnotfound/pathnotfound.component';
+
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'createpoll', component: CreatepollComponent},
-  {path: 'viewpolls', component: ViewpollsComponent},
-  {path: 'poll/:uid', component: DetailedpollComponent}
+  {path: 'dashboard', component: DashboardComponent , canActivate:[AuthGuard]},
+  {path: 'createpoll', component: CreatepollComponent,canActivate:[AuthGuard]},
+  {path: 'viewpolls', component: ViewpollsComponent, canActivate:[AuthGuard]},
+  {path: 'poll/:uid', component: DetailedpollComponent},
+  {path: '**', component: PathnotfoundComponent}
 ];
 
 @NgModule({

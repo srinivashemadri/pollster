@@ -21,6 +21,7 @@ export class ViewpollsComponent implements OnInit {
     this.isLoading = true;
 
     this.auth.authState.subscribe((user)=>{
+      
       this.db.collection("pollcreaters").doc(user.uid).collection("polls").get().subscribe((result)=>{
         this.isLoading = false;
         result.docs.forEach((document)=>{
@@ -40,5 +41,19 @@ export class ViewpollsComponent implements OnInit {
   viewthispoll(uid: String){
     this.router.navigate(['/poll/'+uid]);
   }
+
+  async deletethispoll(uid: string){
+
+    await this.db.collection("pollcreaters").doc(this.auth.auth.currentUser.uid).collection("polls").doc(uid).delete();
+    this.db.collection("polls").doc(uid).delete().then(()=>{
+      alert("This poll has been Deleted successfully");
+      this.viewpolls = this.viewpolls.filter((poll)=>{
+        return poll['uid']==uid ? false : true
+      })
+      
+    })
+  }
+
+
 
 }

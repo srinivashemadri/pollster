@@ -8,9 +8,10 @@ a:hover{
 }
 
 mat-card{
-    width: 100%;
+    width: 90%;
     margin: auto;
     margin-left: 2rem;
+    margin-right: 2rem;
 }
 
 button:hover{

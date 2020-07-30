@@ -1,24 +1,88 @@
 <div *ngIf="!isLoading">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>{{question}}</mat-card-title>
-            <mat-card-subtitle>Vote for the below options</mat-card-subtitle>
-        </mat-card-header>
-        <hr style="height: 1px; background-color: black;">
-        <mat-card-content>
-            <div *ngFor="let option of options">
-                <div class="row">
-                    <div class="col-sm-9">
-                        <p class="mt-2">{{option['optionvalue']}}</p>
+    <div *ngIf="pollfound">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title> <b>Poll Question</b> : {{question}}</mat-card-title>
+                <mat-card-subtitle> <b>Note:</b> You cannot vote more than once, Vote once submitted can't be modified / undone </mat-card-subtitle>
+                <br>
+                
+            </mat-card-header>
+            <b>Poll Created by</b> : {{createremail}}
+            <hr style="height: 1px; background-color: black;">
+            <mat-card-content>
+                
+                <div *ngFor="let option of options">
+                    <div class="row">
+                        <div class="col-sm-9">
+                            <p class="mt-2"> <b>Option</b> : {{option['optionvalue']}}</p>
+                            <div style="position: relative;">
+                                <mat-progress-bar style="height: 20px; background-color: blue;" mode="determinate" [value]="(option['votecount']/Totalcount)*100">abcd</mat-progress-bar>
+                                <span
+                                 style="position:absolute; top: 0.1em;" 
+                                 [ngStyle]="{'left': (option['votecount']/Totalcount)*95  + '%'}">{{((option['votecount']/Totalcount)*100)}}%
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 text-right">
+                            <div *ngIf="curruseremail!=createremail">
+                                <button (click)="votethisopt(option.index)" mat-stroked-button color="primary">Vote</button>
+                            </div>
+                            
+                            <div class="mt-2">
+                                Total Votes: {{option.votecount}}
+                                
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div *ngIf="this.auth.auth.currentUser==null || this.auth.auth.currentUser.email!=option['email']">
-                            <button mat-stroked-button color="primary">Vote</button>
+                    <hr>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div *ngIf="curruseremail==createremail">
+                    <button (click)="viewlistwhovoted()" class="btn btn-primary">
+                        <span *ngIf="!viewwhovoted">
+                            View who voted
+                        </span>
+                        <span *ngIf="viewwhovoted">
+                            Hide Voters
+                        </span>
+                    </button>
+                    
+                    <button class="btn btn-success ml-2" (click)="showmodal()">
+                        <span>
+                            <span class="material-icons" style="size: 10px;" >
+                                share
+                            </span>
+                        </span>
+                        Share this poll
+                    </button>
+                </div>
+                <div *ngIf="viewwhovoted" >
+                    <h5 class="text-center">List of voters</h5>
+                    <div *ngFor="let email of listwhovoted">
+                        <div class="text-center mt-3">
+                            <div  style=" text-overflow: ellipsis; white-space: nowrap; overflow: hidden;  background-color: lightgreen; padding: 10px; margin: 5px; ">
+                                {{email}}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <hr>
-            </div>
-        </mat-card-content>
-    </mat-card>
+            </mat-card-actions>
+            
+    
+        </mat-card>
+
+    </div>
+    <div *ngIf="!pollfound">
+        <h4 class="mt-5 text-center">
+            Uh oh! Either the poll you searched for is deleted or not existed!
+        </h4>
+
+    </div>
+</div>
+
+<div *ngIf="isLoading">
+
+    <mat-spinner style="left: 50%; vertical-align: 50%;"></mat-spinner>
+
 </div>

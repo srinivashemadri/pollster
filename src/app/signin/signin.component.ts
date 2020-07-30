@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { NgForm } from '@angular/forms';
@@ -12,17 +12,23 @@ import { Router } from '@angular/router';
 })
 export class SigninComponent implements OnInit {
 
-  constructor(private auth: AngularFireAuth, private router: Router) { }
+  constructor(private auth: AngularFireAuth, private router: Router,private zone: NgZone) { }
+  fgtpwdclicked: boolean= false;
+  email: string;
 
   ngOnInit() {
   }
 
   signinwithgoogle(){
-    console.log("siginwithgoogle")
+    
     var provider = new firebase.auth.GoogleAuthProvider();
+
     this.auth.auth.signInWithPopup(provider).then((user)=>{
-      console.log(user);
-      this.router.navigate(['/dashboard']);
+      this.zone.run(()=>{
+        
+        this.router.navigate(['/dashboard']);
+      })
+      
     });
   }
 
@@ -30,7 +36,7 @@ export class SigninComponent implements OnInit {
     if(Form.valid){
       this.auth.auth.signInWithEmailAndPassword(Form.value.email, Form.value.password).then((result)=>{
         if(result.user.emailVerified){
-          console.log(result);
+          
           this.router.navigate(['/dashboard']);
         }
         else{
@@ -38,8 +44,21 @@ export class SigninComponent implements OnInit {
           this.auth.auth.signOut();
           
         }
+      }).catch((err)=>{
+        alert(err.message)
       })
     }
+  }
+
+  sendfgtpwdlink(){
+    
+    this.auth.auth.sendPasswordResetEmail(this.email).then(()=>{
+      
+      alert("Password reset link sent successfully")
+    }).catch((err)=>{
+      alert(err.message)
+    })
+
   }
   
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { NgForm } from '@angular/forms';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -9,7 +11,7 @@ import { NgForm } from '@angular/forms';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private auth: AngularFireAuth) { }
+  constructor(private auth: AngularFireAuth, private db: AngularFirestore, private router: Router) { }
 
   user;
   isLoading:boolean = false;
@@ -32,6 +34,18 @@ export class ProfileComponent implements OnInit {
       })
     }
 
+  }
+
+  deleteaccount(){
+    var result = confirm("Are you sure, you want to delete your account?")
+    if(result == true){
+      this.db.collection("pollcreaters").doc(this.auth.auth.currentUser.uid).delete().then(()=>{
+        this.auth.auth.currentUser.delete().then(()=>{
+          alert("Account deleted successfully, Now you can't able to manage your polls")
+          this.router.navigate(['/'])
+        })
+      })
+    }
   }
 
 }

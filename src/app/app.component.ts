@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.auth.authState.subscribe((user)=>{
       this.user = user;
-      console.log(this.user);
+      
       
     })
   }
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['']);
   }
 
-  constructor(private auth: AngularFireAuth, private router: Router){
+  constructor(public auth: AngularFireAuth, private router: Router){
 
   }
   

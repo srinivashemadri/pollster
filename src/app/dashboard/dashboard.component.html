@@ -1,17 +1,21 @@
 <div class="row">
 
-    <div class="col-sm-5">
+    <div class="col-sm-5 mt-5">
         <mat-card class="bg-primary">
             <mat-card-header>
                 <mat-card-title class="text-white" >Activities</mat-card-title>
             </mat-card-header>
             <mat-card-content class="mt-2">
-                <button class="btn-block btn btn-warning" mat-raised-button> <a routerLink="/createpoll">Create a new poll</a> </button>
-                <button class="btn-block btn btn-warning" mat-raised-button > <a routerLink="/viewpolls">View your polls</a> </button>
+                <button class="btn-block btn btn-warning" mat-raised-button (click)="createnewpoll()"> 
+                    Create a new poll
+                </button>
+                <button class="btn-block btn btn-warning" mat-raised-button (click)="viewpolls()" > 
+                    View your polls
+                </button>
             </mat-card-content>
         </mat-card>
     </div>
-    <div class="col-sm-7" >
+    <div class="col-sm-7 mt-5" >
         <app-profile></app-profile>
     </div>
 
